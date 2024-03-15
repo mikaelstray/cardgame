@@ -23,8 +23,12 @@ public class GameController {
   private void attachEventHandlers() {
     Button dealButton = view.getDealHandButton();
     if (dealButton != null) {
-      dealButton.setOnAction(e -> {
-        handleDeal();
+      dealButton.setOnAction(e -> handleDeal());
+    }
+
+    Button checkButton = view.getCheckHandButton();
+    if (checkButton != null) {
+      checkButton.setOnAction(e -> {
         view.setBoxText(1, Integer.toString(hand.handsSum()));
         view.setBoxText(3, hand.getHearts());
         view.setBoxText(5, this.hasS12());

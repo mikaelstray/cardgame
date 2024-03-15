@@ -32,7 +32,7 @@ public class PlayingCard {
    * @throws IllegalArgumentException if suit or face have invalid values.
    */
   public PlayingCard(Suit suit, Rank face) {
-    if (suit.getSuit() != 'H' && suit.getSuit() != 'D' && suit.getSuit() != 'C' && suit.getSuit() != 'S') {
+    if (suit.getSymbol() != 'H' && suit.getSymbol() != 'D' && suit.getSymbol() != 'C' && suit.getSymbol() != 'S') {
       throw new IllegalArgumentException("Parameter suit must be one of H, D, C or S");
     }
 
@@ -51,7 +51,7 @@ public class PlayingCard {
    * @return the suit and face of the card as a string
    */
   public String getAsString() {
-    return String.format("%s%s", suit, face);
+    return String.format("%s%s", suit.getSymbol(), face.getValue());
   }
 
   /**

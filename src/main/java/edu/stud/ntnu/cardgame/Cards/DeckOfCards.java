@@ -5,6 +5,8 @@ import edu.stud.ntnu.cardgame.CardEnums.Suit;
 
 import java.util.*;
 
+
+
 public class DeckOfCards {
   private final List<PlayingCard> cards;
 
@@ -16,10 +18,6 @@ public class DeckOfCards {
       }
     }
     shuffleDeck();
-  }
-
-  public PlayingCard dealLastCard() {
-    return cards.isEmpty() ? null : cards.remove(cardStock() - 1);
   }
 
   public List<PlayingCard> dealRandomCard(int n) throws IllegalArgumentException{

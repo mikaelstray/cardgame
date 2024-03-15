@@ -1,7 +1,9 @@
 package edu.stud.ntnu.cardgame.Cards;
 
+import edu.stud.ntnu.cardgame.CardEnums.Rank;
+import edu.stud.ntnu.cardgame.CardEnums.Suit;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -9,9 +11,13 @@ public class HandCards {
   private List<PlayingCard> hand;
   private DeckOfCards deck;
 
-  public HandCards(List<PlayingCard> hand, DeckOfCards deck) {
-    this.hand = hand;
+  public HandCards(DeckOfCards deck) {
+    this.hand = new ArrayList<>();
     this.deck = deck;
+  }
+
+  public List<PlayingCard> getHand() {
+    return hand;
   }
 
   public void dealHands(int n) {
@@ -19,47 +25,30 @@ public class HandCards {
     hand = deck.dealRandomCard(n);
   }
 
-  private boolean isFlush() {
-    if (hand.size() < 5) {
-      return false;
-    } else {
-      return hand.stream()
-              .map(PlayingCard::getSuit)
-              .distinct()
-              .count() == 1;
-    }
-  }
-
-  private ArrayList<Integer> sortedHandValues() {
+  public int handsSum() {
     return hand.stream()
-            .map(playingCard -> playingCard.getFace().getValue())
-            .distinct()
-            .sorted()
-            .collect(Collectors
-                    .toCollection(ArrayList::new));
-  }
-  private boolean isStraight() {
-    ArrayList<Integer> sortedValues = sortedHandValues();
-
-    if (sortedValues.contains(1)) {
-      sortedValues.add(14);
-    }
-
-    int straightCounter = 1;
-    for (int i = 0; i < sortedValues.size()-1; i++) {
-      if (sortedValues.get(i+1) - sortedValues.get(i) == 1) {
-        straightCounter++;
-        if (straightCounter == 5) return true;
-      } else {
-        straightCounter = 1;
-      }
-    }
-    return false;
+            .mapToInt(i -> i.getFace().getValue())
+            .sum();
   }
 
-  private boolean isRoyal() {
-    List<Integer> royalList = Arrays.asList(1,10,11,12,13);
-    return sortedHandValues().containsAll(royalList);
+  public String getHearts() {
+    String hearts = hand.stream()
+            .filter(c -> c.getSuit().equals(Suit.HEARTS))
+            .map(PlayingCard::getAsString)
+            .collect(Collectors.joining(", "));
+    return hearts.isEmpty() ? "No hearts" : hearts;
+  }
+
+  public boolean S12exists() {
+    return hand.stream()
+            .anyMatch(c -> c.getFace().equals(Rank.QUEEN) && c.getSuit().equals(Suit.SPADES));
+  }
+
+  public boolean isFlush() {
+    return hand.stream()
+            .collect(Collectors.groupingBy(PlayingCard::getSuit, Collectors.counting()))
+            .values().stream()
+            .anyMatch(count -> count >= 5);
   }
 
   public String handAsString() {
@@ -67,5 +56,4 @@ public class HandCards {
             .map(PlayingCard::getAsString)
             .collect(Collectors.joining("\n"));
   }
-
 }

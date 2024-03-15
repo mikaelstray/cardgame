@@ -15,6 +15,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
+/**
+ * The main class for the card game application. This class sets up the GUI and starts the game.
+ */
+
 public class JavaFXapp extends Application {
 
   private GameController gameController;
@@ -79,25 +83,57 @@ public class JavaFXapp extends Application {
 
   }
 
+  /**
+   * Updates the card display with the given hand.
+   *
+   * @param hand The hand to display.
+   */
   public void updateCardDisplay(String hand) {
     cardDisplayArea.setText(hand);
   }
 
+  /**
+   * Sets the text of the text field at the given index in the information display box.
+   *
+   * @param index The index of the text field to set.
+   * @param sum   The text to set.
+   */
   public void setBoxText(int index, String sum) {
     ((TextField) infoDisplayBox.getChildren().get(index)).setText(sum);
   }
+
+  /**
+   * Returns the number of cards to deal.
+   *
+   * @return The number of cards to deal.
+   */
   public Integer getNrOfCards() {
     return Integer.parseInt(textField.getText());
   }
 
+  /**
+   * Returns the deal hand button.
+   *
+   * @return The deal hand button.
+   */
   public Button getDealHandButton() {
     return dealHandButton;
   }
 
+  /**
+   * Returns the check hand button.
+   *
+   * @return The check hand button.
+   */
   public Button getCheckHandButton() {
     return checkHandButton;
   }
 
+  /**
+   * The main method. Launches the application.
+   *
+   * @param args Command line arguments.
+   */
   public static void main(String[] args) {
     launch(args);
   }

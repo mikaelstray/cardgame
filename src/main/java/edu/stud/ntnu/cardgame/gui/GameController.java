@@ -1,10 +1,11 @@
 package edu.stud.ntnu.cardgame.gui;
 
 import edu.stud.ntnu.cardgame.Cards.HandCards;
-import edu.stud.ntnu.cardgame.gui.JavaFXapp;
 import javafx.scene.control.Button;
 
-
+/**
+ * Controller class for the card game application.
+ */
 public class GameController {
 
   private HandCards hand;
@@ -16,6 +17,9 @@ public class GameController {
     attachEventHandlers();
   }
 
+  /**
+   * Attaches event handlers to the buttons in the view.
+   */
   private void attachEventHandlers() {
     Button dealButton = view.getDealHandButton();
     if (dealButton != null) {
@@ -28,17 +32,30 @@ public class GameController {
       });
     }
   }
+
+  /**
+   * Deals a new hand of cards and updates the view.
+   */
   private void handleDeal() {
     hand.dealHands(view.getNrOfCards());
     view.updateCardDisplay(hand.handAsString());
   }
 
+  /**
+   * Returns "Yes" if the hand contains the queen of spades, "No" otherwise.
+   *
+   * @return "Yes" if the hand contains the queen of spades, "No" otherwise.
+   */
   private String hasS12() {
     return hand.S12exists() ? "Yes" : "No";
   }
 
+  /**
+   * Returns "Yes" if the hand contains a flush, "No" otherwise.
+   *
+   * @return "Yes" if the hand contains a flush, "No" otherwise.
+   */
   private String isFlush() {
     return hand.isFlush() ? "Yes" : "No";
   }
-
 }

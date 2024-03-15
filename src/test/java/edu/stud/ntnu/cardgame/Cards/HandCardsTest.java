@@ -11,6 +11,17 @@ class HandCardsTest {
 
   @Test
   void dealHands() {
+    DeckOfCards deck = new DeckOfCards();
+    HandCards hand = new HandCards(deck);
+    hand.dealHands(5);
+    assertEquals(5, hand.getHand().size());
+  }
+
+  @Test
+  void negativeDealHands() {
+    DeckOfCards deck = new DeckOfCards();
+    HandCards hand = new HandCards(deck);
+    assertThrows(IllegalArgumentException.class, () -> hand.dealHands(-1));
   }
 
   @Test
@@ -21,9 +32,5 @@ class HandCardsTest {
     hand.getHand().add(new PlayingCard(Suit.HEARTS, Rank.QUEEN));
     int sum = hand.handsSum();
     assertEquals(25, sum);
-  }
-
-  @Test
-  void handAsString() {
   }
 }

@@ -7,8 +7,16 @@ import java.util.stream.Collectors;
 
 public class HandCards {
   private List<PlayingCard> hand;
-  public HandCards(List<PlayingCard> hand) {
+  private DeckOfCards deck;
+
+  public HandCards(List<PlayingCard> hand, DeckOfCards deck) {
     this.hand = hand;
+    this.deck = deck;
+  }
+
+  public void dealHands(int n) {
+    hand.clear();
+    hand = deck.dealRandomCard(n);
   }
 
   private boolean isFlush() {
@@ -53,4 +61,11 @@ public class HandCards {
     List<Integer> royalList = Arrays.asList(1,10,11,12,13);
     return sortedHandValues().containsAll(royalList);
   }
+
+  public String handAsString() {
+    return hand.stream()
+            .map(PlayingCard::getAsString)
+            .collect(Collectors.joining("\n"));
+  }
+
 }
